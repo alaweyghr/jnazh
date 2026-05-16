@@ -1,0 +1,446 @@
+# لوحة جنائز الراجحي — الواجهة الاحترافية الجديدة
+
+استبدل ملف `index.html` بالكامل بهذا الكود:
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جنائز الراجحي</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background:
+        radial-gradient(circle at top right, #1c2740 0%, #0b1220 45%),
+        linear-gradient(135deg, #0b1220 0%, #121d33 100%);
+      min-height: 100vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 540px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow:
+        0 25px 60px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title h1 {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .title span {
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+    }
+
+    .live-badge {
+      background: rgba(70, 227, 140, 0.14);
+      border: 1px solid rgba(70, 227, 140, 0.3);
+      color: #8cffbf;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero-card {
+      background:
+        linear-gradient(135deg, rgba(60,130,255,.18), rgba(60,130,255,.05));
+      border: 1px solid rgba(80,140,255,.18);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .prayer-label {
+      color: rgba(255,255,255,.65);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .prayer-name {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-top: 12px;
+    }
+
+    .total-number {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .total-text {
+      color: rgba(255,255,255,.7);
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .update-box {
+      text-align: left;
+      color: rgba(255,255,255,.6);
+      font-size: 12px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      border-radius: 22px;
+      padding: 18px 14px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+
+    .stat-card h3 {
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .stat-card .value {
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .men {
+      box-shadow: inset 0 0 0 1px rgba(88,166,255,.18);
+    }
+
+    .women {
+      box-shadow: inset 0 0 0 1px rgba(255,105,180,.18);
+    }
+
+    .kids {
+      box-shadow: inset 0 0 0 1px rgba(112,255,190,.18);
+    }
+
+    .summary-card {
+      margin-top: 10px;
+      background: rgba(255,255,255,.04);
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .summary-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .summary-header span {
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+    }
+
+    .summary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .summary-item .name {
+      color: rgba(255,255,255,.8);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .summary-item .count {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .waiting {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255,255,255,.6);
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 14px;
+      }
+
+      .dashboard {
+        padding: 20px;
+      }
+
+      .prayer-name {
+        font-size: 32px;
+      }
+
+      .total-number {
+        font-size: 58px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="top">
+
+    <div class="title">
+      <h1>جنائز الراجحي</h1>
+      <span>نظام العرض الحي الذكي</span>
+    </div>
+
+    <div class="live-badge">
+      ● مباشر
+    </div>
+
+  </div>
+
+  <div class="hero-card">
+
+    <div class="prayer-label">
+      الصلاة الحالية
+    </div>
+
+    <div class="prayer-name" id="prayerName">
+      --
+    </div>
+
+    <div class="total-row">
+
+      <div>
+        <div class="total-number" id="total">
+          0
+        </div>
+        <div class="total-text">
+          إجمالي الجنائز
+        </div>
+      </div>
+
+      <div class="update-box">
+        آخر تحديث<br>
+        <strong id="lastUpdate">--:--</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card men">
+      <h3>رجال</h3>
+      <div class="value" id="men">0</div>
+    </div>
+
+    <div class="stat-card women">
+      <h3>نساء</h3>
+      <div class="value" id="women">0</div>
+    </div>
+
+    <div class="stat-card kids">
+      <h3>أطفال</h3>
+      <div class="value" id="kids">0</div>
+    </div>
+
+  </div>
+
+  <div class="summary-card">
+
+    <div class="summary-header">
+      <h2>ملخص اليوم</h2>
+      <span>جميع الصلوات</span>
+    </div>
+
+    <div class="summary-list" id="summaryList">
+      <div class="waiting">
+        جاري تحميل البيانات...
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const API_URL = "https://script.google.com/macros/s/AKfycbzBX9SOYeh4pbI5wLg25hMB7RXVfYPpUO7TQncgzo2MmYc5wK6xPUPLaEARR8U0i9hj/exec";
+
+  async function fetchData() {
+
+    try {
+
+      const response = await fetch(API_URL);
+      const data = await response.json();
+
+      updateUI(data);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  }
+
+  function updateUI(data) {
+
+    document.getElementById("prayerName").innerText =
+      data.status === "waiting"
+      ? "ملخص اليوم"
+      : data.prayerName || "--";
+
+    document.getElementById("men").innerText =
+      data.status === "waiting"
+      ? "—"
+      : data.men || 0;
+
+    document.getElementById("women").innerText =
+      data.status === "waiting"
+      ? "—"
+      : data.women || 0;
+
+    document.getElementById("kids").innerText =
+      data.status === "waiting"
+      ? "—"
+      : data.kids || 0;
+
+    document.getElementById("total").innerText =
+      data.status === "waiting"
+      ? data.summary.reduce((a,b)=>a + Number(b.total),0)
+      : data.total || 0;
+
+    document.getElementById("lastUpdate").innerText =
+      data.lastUpdate || "--:--";
+
+    const summaryList =
+      document.getElementById("summaryList");
+
+    summaryList.innerHTML = "";
+
+    if (
+      !data.summary ||
+      data.summary.length === 0
+    ) {
+
+      summaryList.innerHTML = `
+        <div class="waiting">
+          لا توجد بيانات اليوم
+        </div>
+      `;
+
+      return;
+
+    }
+
+    data.summary.forEach(item => {
+
+      summaryList.innerHTML += `
+
+        <div class="summary-item">
+          <div class="name">
+            ${item.prayer}
+          </div>
+
+          <div class="count">
+            ${item.total}
+          </div>
+        </div>
+
+      `;
+
+    });
+
+  }
+
+  fetchData();
+
+  setInterval(() => {
+    fetchData();
+  }, 30000);
+
+</script>
+
+</body>
+</html>
+```
+
+ثم فقط غيّر هذا السطر:
+
+```javascript
+const API_URL = "https://script.google.com/macros/s/AKfycbzBX9SOYeh4pbI5wLg25hMB7RXVfYPpUO7TQncgzo2MmYc5wK6xPUPLaEARR8U0i9hj/exec";
+```
+
+إلى رابط `/exec` الخاص بك.
