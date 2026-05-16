@@ -220,6 +220,78 @@
       font-size: 15px;
     }
 
+    /* ====================================================
+       WIDGET MODES
+    ==================================================== */
+
+    body.widget-medium .dashboard {
+      max-width: 420px;
+      transform: scale(0.95);
+    }
+
+    body.widget-large .dashboard {
+      max-width: 780px;
+      padding: 34px;
+    }
+
+    body.widget-large .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    body.widget-large .summary-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    body.widget-large .summary-item {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 110px;
+    }
+
+    body.widget-large .summary-item .count {
+      font-size: 34px;
+    }
+
+    body.widget-large .summary-item .name {
+      font-size: 17px;
+    }
+
+    body.widget-large .hero-card {
+      padding: 34px;
+    }
+
+    body.widget-large .prayer-name {
+      font-size: 54px;
+    }
+
+    body.widget-large .total-number {
+      font-size: 94px;
+    }
+
+    body.widget-large .stat-card .value {
+      font-size: 48px;
+    }
+
+    body.widget-large .stat-card h3 {
+      font-size: 16px;
+    }
+
+    body.widget-large .summary-header h2 {
+      font-size: 24px;
+    }
+
+    @media (max-width: 900px) {
+
+      body.widget-large .summary-list {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
     @media (max-width: 600px) {
 
       body {
@@ -242,11 +314,33 @@
         grid-template-columns: 1fr;
       }
 
+      .summary-list {
+        grid-template-columns: 1fr !important;
+      }
+
+    }
+
+      .dashboard {
+        padding: 20px;
+      }
+
+      .prayer-name {
+        font-size: 32px;
+      }
+
+      .total-number {
+        font-size: 58px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
 
   </style>
 </head>
-<body>
+<body class="widget-large">
 
 <div class="dashboard">
 
