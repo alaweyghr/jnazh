@@ -1,0 +1,406 @@
+/* =========================================
+   جنايز الراجحي — Widget CSS
+   Medium Widget / iPhone 12 Pro
+========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body{
+
+  width:1014px;
+  height:474px;
+
+  overflow:hidden;
+
+  direction:rtl;
+
+  font-family:'Tajawal',sans-serif;
+
+  background:#E7DCCD;
+
+  color:#111;
+}
+
+body{
+
+  position:relative;
+
+  padding:32px;
+}
+
+/* =========================================
+   الخلفية
+========================================= */
+
+.bg-lines{
+
+  position:absolute;
+
+  inset:0;
+
+  opacity:.35;
+
+  pointer-events:none;
+}
+
+.line{
+
+  position:absolute;
+
+  height:2px;
+
+  background:#F3E9DD;
+
+  transform-origin:left center;
+}
+
+.line1{
+
+  width:340px;
+
+  top:40px;
+
+  left:-40px;
+
+  transform:rotate(-18deg);
+}
+
+.line2{
+
+  width:380px;
+
+  top:160px;
+
+  left:-80px;
+
+  transform:rotate(-20deg);
+}
+
+.line3{
+
+  width:420px;
+
+  bottom:40px;
+
+  left:-120px;
+
+  transform:rotate(-22deg);
+}
+
+/* =========================================
+   الحاوية الرئيسية
+========================================= */
+
+.wrapper{
+
+  width:100%;
+  height:100%;
+
+  display:flex;
+
+  flex-direction:row;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  position:relative;
+
+  z-index:2;
+}
+
+/* =========================================
+   القسم الأيمن
+========================================= */
+
+.right{
+
+  width:300px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.prayer{
+
+  font-size:42px;
+
+  font-weight:800;
+
+  margin-bottom:8px;
+
+  color:#111;
+}
+
+.main-number{
+
+  font-size:180px;
+
+  font-weight:800;
+
+  line-height:1;
+
+  color:#07142B;
+}
+
+.dua{
+
+  margin-top:8px;
+
+  font-size:26px;
+
+  font-weight:500;
+
+  color:#222;
+}
+
+/* =========================================
+   الفاصل
+========================================= */
+
+.divider{
+
+  width:12px;
+
+  height:320px;
+
+  border-radius:999px;
+
+  background:#5B9E97;
+}
+
+/* =========================================
+   القسم الأيسر
+========================================= */
+
+.left{
+
+  width:520px;
+
+  height:100%;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+}
+
+/* =========================================
+   الأعلى
+========================================= */
+
+.top{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+}
+
+.date{
+
+  font-size:26px;
+
+  font-weight:700;
+
+  color:#444;
+}
+
+.update{
+
+  text-align:left;
+}
+
+.update-title{
+
+  font-size:18px;
+
+  color:#666;
+
+  margin-bottom:4px;
+}
+
+.update-time{
+
+  font-size:28px;
+
+  font-weight:800;
+
+  color:#111;
+}
+
+/* =========================================
+   البارات
+========================================= */
+
+.bars{
+
+  margin-top:24px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:18px;
+}
+
+.bar-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:18px;
+}
+
+.bar-label{
+
+  width:80px;
+
+  font-size:30px;
+
+  font-weight:700;
+
+  color:#111;
+}
+
+.bar-bg{
+
+  width:320px;
+
+  height:52px;
+
+  background:#EFEFEF;
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.bar-fill{
+
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  padding-inline:22px;
+
+  border-radius:999px;
+
+  color:white;
+
+  font-size:28px;
+
+  font-weight:800;
+
+  transition:.3s ease;
+}
+
+/* ألوان */
+
+.men{
+  background:#7A7A7A;
+}
+
+.women{
+  background:#696969;
+}
+
+.child{
+  background:#000000;
+}
+
+/* =========================================
+   الأسفل
+========================================= */
+
+.bottom{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:16px;
+}
+
+.summary{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  font-size:24px;
+
+  color:#444;
+
+  font-weight:600;
+}
+
+.pills{
+
+  display:flex;
+
+  gap:12px;
+}
+
+.pill{
+
+  background:#07142B;
+
+  color:white;
+
+  border-radius:999px;
+
+  padding:10px 18px;
+
+  font-size:22px;
+
+  font-weight:700;
+
+  transition:.3s ease;
+}
+
+/* =========================================
+   تحسينات إضافية
+========================================= */
+
+.pill:hover{
+
+  transform:translateY(-2px);
+}
+
+.bar-fill:hover{
+
+  opacity:.92;
+}
+
+/* =========================================
+   Responsive احتياطي
+========================================= */
+
+@media screen and (max-width:1014px){
+
+  html,
+  body{
+
+    zoom:.75;
+  }
+}
