@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>جنائز الراجحي - ويدجت الآيفون المطور</title>
+  <title>جنائز الراجحي - ويدجت ذكي كامل المساحة</title>
   
   <style>
     * {
@@ -21,102 +21,100 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* إلغاء التوسيط لتبدأ العناصر من الأعلى فوراً */
+      justify-content: flex-start;
       align-items: center;
     }
 
-    /* الحاوية الخارجية - تم ضبطها لتملأ حجم الويدجت الصغير تماماً */
+    /* الحاوية الخارجية تملأ عرض الشاشة المخصصة للويدجت تماماً */
     .widget-wrapper {
       width: 100%;
       max-width: 360px;
-      padding: 2px 4px;
+      padding: 0; /* إلغاء الفراغات العلوية والجانبية */
       display: flex;
       flex-direction: column;
     }
 
-    /* التبويبات العلوية المصغرة */
+    /* نظام التبويبات الأربعة المتناسقة أفقياً */
     .tabs {
       display: flex;
-      justify-content: center;
-      margin-bottom: 0;
+      justify-content: space-between;
+      width: 100%;
+      background-color: #15202b;
+      padding: 3px 6px 0 6px;
       z-index: 2;
     }
 
     .tab {
-      background-color: #384d61;
-      color: #b0c4de;
-      padding: 3px 12px;
+      background-color: #253342;
+      color: #63778a; /* الوضع الافتراضي مغلق OFF */
+      padding: 4px 0;
+      width: 23%;
+      text-align: center;
       border-radius: 6px 6px 0 0;
       font-size: 10px;
       font-weight: bold;
-      user-select: none;
+      transition: all 0.3s ease;
     }
 
-    .tab.active {
+    /* وضع التشغيل ON للصلاة الحية حالياً */
+    .tab.live-on {
+      background-color: #ff7643;
+      color: #fff;
+      box-shadow: 0 -2px 6px rgba(255,118,67,0.3);
+    }
+
+    /* وضع التشغيل ON لملخص اليوم */
+    .tab.summary-on {
       background-color: #f7b749;
       color: #1a2633;
+      box-shadow: 0 -2px 6px rgba(247,183,73,0.3);
     }
 
-    /* جسم الويدجت الرئيسي المضغوط */
+    /* جسم الويدجت الرئيسي الممتد بالكامل بدون شريط بني */
     .widget-body {
       background-color: #1c2a38;
-      border-radius: 12px;
-      padding: 8px 10px 20px 10px; /* زيادة حشوة الأسفل لحماية شريط التحديث */
+      padding: 10px 12px 22px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      height: 125px; /* ارتفاع متناسق مع لقطة الويدجت المتوسط في الويب */
-      border: 1px solid #2d3d4f;
+      height: 125px; /* يملأ المساحة المتبقية من لقطة الآيفون */
+      border-bottom: 1px solid #2d3d4f;
     }
 
-    /* الشريط البني الأيسر كخلفية جمالية ثابتة في أقصى اليسار */
-    .widget-body::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 25px;
-      background-color: #7d5a52;
-      z-index: 1;
-    }
-
-    /* المربع الأصفر للرقم الكبير */
+    /* مربع العدد الإجمالي الكبير الأيمن */
     .number-box {
       background-color: #f7b749;
       color: #1a2633;
-      width: 55px;
-      height: 55px;
+      width: 58px;
+      height: 58px;
       border-radius: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 28px;
+      font-size: 30px;
       font-weight: bold;
       flex-shrink: 0;
-      z-index: 2;
     }
 
-    /* قسم الإحصائيات الأوسط - تم تصغيره لتقريب المسافات ومنع اللخبطة */
+    /* قسم الإحصائيات الأوسط الممتد بعد حذف الشريط البني */
     .stats-section {
       flex: 1;
-      padding: 0 8px;
-      z-index: 2;
+      padding: 0 12px;
     }
 
     .stat-row {
       display: flex;
       align-items: center;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       color: #a0b2c6;
       font-size: 10px;
     }
 
     .stat-label {
       width: 26px;
-      font-weight: 500;
+      font-weight: bold;
     }
 
     .progress-bar-container {
@@ -142,18 +140,16 @@
     .stat-value {
       color: #fff;
       font-weight: bold;
-      width: 12px;
+      width: 14px;
       text-align: left;
     }
 
-    /* الجزء الأيسر للصلوات - تم سحبه بالكامل لمنع اختفائه خلف أو تحت الشريط البني */
+    /* الجزء الأيسر للصلوات ممتد ومستغل للمساحة بالكامل */
     .left-section {
-      width: 90px;
+      width: 95px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      z-index: 2;
-      margin-left: 20px; /* مسافة أمان كاملة لمنع التداخل مع الشريط البني */
+      gap: 5px;
     }
 
     .prayer-row {
@@ -166,6 +162,7 @@
       padding-bottom: 1px;
     }
 
+    /* تلوين وإضاءة سطر الصلاة النشطة داخل القائمة أيضاً */
     .prayer-row.active-row {
       color: #4da3ff;
       font-weight: bold;
@@ -182,22 +179,21 @@
       padding: 1px 4px;
       border-radius: 4px;
       font-weight: bold;
-      min-width: 16px;
+      min-width: 18px;
       text-align: center;
       font-size: 8px;
     }
 
-    /* التذييل السفلي المصغر */
+    /* التذييل السفلي المتناسق مع الحدود */
     .widget-footer {
       position: absolute;
-      bottom: 4px;
+      bottom: 5px;
       right: 12px;
-      left: 30px; /* حماية النص من الدخول تحت الشريط البني */
+      left: 12px;
       display: flex;
       justify-content: space-between;
       font-size: 8px;
       color: #63778a;
-      z-index: 2;
     }
 
     .time-val, .date-val {
@@ -209,8 +205,11 @@
 
   <div class="widget-wrapper">
     
-    <div class="tabs" id="tabsContainer">
-      <div class="tab active" id="tabMode">جاري المزامنة...</div>
+    <div class="tabs">
+      <div class="tab" id="tab-الظهر">الظهر</div>
+      <div class="tab" id="tab-العصر">العصر</div>
+      <div class="tab" id="tab-المغرب">المغرب</div>
+      <div class="tab" id="tab-الملخص">ملخص اليوم</div>
     </div>
     
     <div class="widget-body">
@@ -244,15 +243,15 @@
       
       <div class="left-section">
         <div class="prayer-row" id="row-الظهر">
-          <span>الظهر</span>
+          <span>صلاة الظهر</span>
           <span class="badge" id="badge-الظهر">0</span>
         </div>
         <div class="prayer-row" id="row-العصر">
-          <span>العصر</span>
+          <span>صلاة العصر</span>
           <span class="badge" id="badge-العصر">0</span>
         </div>
         <div class="prayer-row" id="row-المغرب">
-          <span>المغرب</span>
+          <span>صلاة المغرب</span>
           <span class="badge" id="badge-المغرب">0</span>
         </div>
       </div>
@@ -273,17 +272,26 @@
         const response = await fetch(API_URL);
         const data = await response.json();
         
-        const tabMode = document.getElementById('tabMode');
+        // 1. تصفير وإغلاق كافة التبويبات الأربعة أولاً (وضع OFF)
+        const tabsList = ["الظهر", "العصر", "المغرب", "الملخص"];
+        tabsList.forEach(t => {
+          const tElement = document.getElementById(`tab-${t}`);
+          if (tElement) {
+            tElement.className = "tab"; // يعيد الكلاس للوضع الطبيعي بدون تلوين
+          }
+        });
+
+        // 2. تفعيل التبويب المناسب لحالة الـ API الحالية (وضع ON)
         if (data.status === "waiting") {
-          tabMode.innerText = "ملخص جنائز اليوم";
-          tabMode.style.backgroundColor = "#f7b749";
-          tabMode.style.color = "#1a2633";
-        } else {
-          tabMode.innerText = `مباشر: ${data.prayerName || '--'}`;
-          tabMode.style.backgroundColor = "#ff7643";
-          tabMode.style.color = "#fff";
+          const summaryTab = document.getElementById('tab-الملخص');
+          if (summaryTab) summaryTab.classList.add('summary-on');
+        } else if (data.status === "live" && data.prayerName) {
+          const activePrayerKey = data.prayerName.replace("صلاة ", "").trim();
+          const activeTab = document.getElementById(`tab-${activePrayerKey}`);
+          if (activeTab) activeTab.classList.add('live-on');
         }
 
+        // 3. حساب وتوزيع الأرقام الإجمالية والفئات
         let menCount = data.men || 0;
         let womenCount = data.women || 0;
         let kidsCount = data.kids || 0;
@@ -301,11 +309,13 @@
         document.getElementById('valChildren').innerText = kidsCount;
         document.getElementById('lastUpdate').innerText = data.lastUpdate || "--:--";
 
+        // 4. تحديث حركة البارات الانسيابية الكاملة
         const max = totalCount || 1; 
         document.getElementById('barMen').style.width = `${(menCount / max) * 100}%`;
         document.getElementById('barWomen').style.width = `${(womenCount / max) * 100}%`;
         document.getElementById('barChildren').style.width = `${(kidsCount / max) * 100}%`;
 
+        // 5. تصفير وإضاءة قائمة الصلوات الجانبية
         const prayers = ["الظهر", "العصر", "المغرب"];
         prayers.forEach(p => {
           const badge = document.getElementById(`badge-${p}`);
@@ -314,6 +324,7 @@
           if(row) row.classList.remove('active-row');
         });
 
+        // حقن الملخص التراكمي في الشارات الجانبية
         if (data.summary && data.summary.length > 0) {
           data.summary.forEach(item => {
             const cleanName = item.prayer.replace("صلاة ", "").trim();
@@ -324,6 +335,7 @@
           });
         }
 
+        // إضاءة السطر الجانبي أثناء الصلاة المباشرة
         if (data.status === "live" && data.prayerName) {
           const activeCleanName = data.prayerName.replace("صلاة ", "").trim();
           const activeRow = document.getElementById(`row-${activeCleanName}`);
@@ -333,7 +345,7 @@
         updateBadgeStyling();
 
       } catch (error) {
-        console.error("خطأ مزامنة الآيفون:", error);
+        console.error("خطأ مزامنة نظام التبويبات الأربعة:", error);
       }
     }
 
