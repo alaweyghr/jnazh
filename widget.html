@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>جنائز الراجحي - ويدجت الآيفون</title>
+  <title>جنائز الراجحي - ويدجت الآيفون المطور</title>
   
   <style>
     * {
@@ -13,107 +13,116 @@
     }
     
     body {
-      background-color: #253342;
+      background-color: #1c2a38; /* جعل الخلفية نفس لون الويدجت ليتناسق تماماً */
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 5px;
+      overflow: hidden;
     }
 
-    /* الحاوية الخارجية للويدجت والتبويبات */
+    /* الحاوية الخارجية - تم إلغاء العرض الكبير وجعله مرناً ومتوافقاً مع الآيفون */
     .widget-wrapper {
-      width: 650px;
+      width: 100%;
+      max-width: 360px; /* المقاس المثالي لويدجت الآيفون المتوسط */
+      display: flex;
+      flex-direction: column;
     }
 
-    /* التبويبات العلوية */
+    /* التبويبات العلوية المصغرة */
     .tabs {
       display: flex;
       justify-content: center;
-      gap: 5px;
       margin-bottom: -1px;
+      z-index: 2;
     }
 
     .tab {
       background-color: #384d61;
       color: #b0c4de;
-      padding: 10px 25px;
-      border-radius: 12px 12px 0 0;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      padding: 4px 15px;
+      border-radius: 8px 8px 0 0;
+      font-size: 11px;
+      font-weight: bold;
       user-select: none;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     }
 
     .tab.active {
       background-color: #f7b749;
       color: #1a2633;
-      font-weight: bold;
     }
 
-    /* جسم الويدجت الرئيسي */
+    /* جسم الويدجت الرئيسي المضغوط */
     .widget-body {
       background-color: #1c2a38;
-      border-radius: 25px;
-      padding: 25px;
+      border-radius: 16px;
+      padding: 12px 15px;
       display: flex;
       align-items: center;
-      justify-content: space-between; /* توزيع متناسق وملموم للمساحات */
+      justify-content: space-between;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      height: 145px; /* ارتفاع ثابت متناسق مع الآيفون */
+      border: 1px solid #2d3d4f;
     }
 
-    /* الشريط البني في أقصى اليسار للتوافق مع الاتجاه العربي */
+    /* الشريط البني الأيسر كخلفية (Padding-left يحمي العناصر من الاختفاء تحته) */
     .widget-body::after {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      width: 45px;
+      width: 25px; /* تقليص عرض الشريط ليناسب المساحة */
       background-color: #7d5a52;
+      z-index: 1;
     }
 
-    /* المربع الأصفر الأيمن للرقم الكبير */
+    /* المربع الأصفر للرقم الكبير */
     .number-box {
       background-color: #f7b749;
       color: #1a2633;
-      width: 120px;
-      height: 120px;
-      border-radius: 18px;
+      width: 65px;
+      height: 65px;
+      border-radius: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 54px;
+      font-size: 32px;
       font-weight: bold;
-      transition: all 0.3s ease;
+      flex-shrink: 0;
     }
 
-    /* قسم الإحصائيات الأوسط - تم تعديله لمنع الفراغات الكبيرة */
+    /* قسم الإحصائيات الأوسط - تم تصغيره لتقريب المسافات */
     .stats-section {
-      width: 260px;       /* عرض ثابت لمنع التمدد الفائض */
-      padding: 0 15px;    /* مسافة داخلية متناسقة */
+      flex: 1;
+      padding: 0 10px;
+      z-index: 2;
     }
 
     .stat-row {
       display: flex;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       color: #a0b2c6;
-      font-size: 15px;
+      font-size: 11px;
     }
 
     .stat-label {
-      width: 50px;
+      width: 30px;
+      font-weight: 500;
     }
 
     .progress-bar-container {
       flex: 1;
-      height: 6px;
+      height: 5px;
       background-color: #2d3d4f;
       border-radius: 3px;
-      margin: 0 15px;
+      margin: 0 8px;
       position: relative;
     }
 
@@ -124,7 +133,6 @@
       transition: width 0.6s ease-in-out;
     }
 
-    /* ألوان مؤشرات التقدم */
     .progress-men { background-color: #ff7643; }
     .progress-women { background-color: #f7b749; }
     .progress-children { background-color: #4285f4; }
@@ -132,32 +140,33 @@
     .stat-value {
       color: #fff;
       font-weight: bold;
-      width: 20px;
+      width: 15px;
       text-align: left;
     }
 
-    /* الجزء الأيسر للصلوات - تم تقريب المسافة */
+    /* الجزء الأيسر للصلوات - تم تأمينه وإبعاده عن الحافة لتجنب التداخل مع الشريط البني */
     .left-section {
-      width: 135px;
-      border-left: 10px solid transparent; /* تقريب الفراغ من الأرقام والبارات */
+      width: 95px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
+      z-index: 2;
+      margin-left: 15px; /* إبعاد كامل القسم عن الشريط البني المستقر في أقصى اليسار */
     }
 
     .prayer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 10px;
       color: #798e9c;
       border-bottom: 1px solid #2d3d4f;
-      padding-bottom: 4px;
-      transition: all 0.3s ease;
+      padding-bottom: 2px;
     }
 
     .prayer-row.active-row {
       color: #4da3ff;
+      font-weight: bold;
     }
     
     .prayer-row.active-row .badge {
@@ -168,29 +177,29 @@
     .badge {
       background-color: #243547;
       color: #4da3ff;
-      padding: 2px 8px;
-      border-radius: 10px;
+      padding: 1px 5px;
+      border-radius: 6px;
       font-weight: bold;
-      min-width: 25px;
+      min-width: 18px;
       text-align: center;
-      transition: all 0.3s ease;
+      font-size: 9px;
     }
 
-    /* التذييل السفلي */
+    /* التذييل السفلي المصغر */
     .widget-footer {
       position: absolute;
-      bottom: 12px;
-      right: 170px;
-      left: 70px;
+      bottom: 6px;
+      right: 15px;
+      left: 35px; /* حماية النص من الدخول تحت الشريط البني */
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 9px;
       color: #63778a;
+      z-index: 2;
     }
 
     .time-val, .date-val {
       color: #fff;
-      margin-right: 5px;
     }
   </style>
 </head>
@@ -199,7 +208,7 @@
   <div class="widget-wrapper">
     
     <div class="tabs" id="tabsContainer">
-      <div class="tab active" id="tabMode">جاري الاتصال بالنظام...</div>
+      <div class="tab active" id="tabMode">جاري المزامنة...</div>
     </div>
     
     <div class="widget-body">
@@ -233,29 +242,28 @@
       
       <div class="left-section">
         <div class="prayer-row" id="row-الظهر">
-          <span>صلاة الظهر</span>
+          <span>الظهر</span>
           <span class="badge" id="badge-الظهر">0</span>
         </div>
         <div class="prayer-row" id="row-العصر">
-          <span>صلاة العصر</span>
+          <span>العصر</span>
           <span class="badge" id="badge-العصر">0</span>
         </div>
         <div class="prayer-row" id="row-المغرب">
-          <span>صلاة المغرب</span>
+          <span>المغرب</span>
           <span class="badge" id="badge-المغرب">0</span>
         </div>
       </div>
       
       <div class="widget-footer">
-        <div>آخر تحديث: <span class="time-val" id="lastUpdate">--:--</span></div>
-        <div id="currentDate" class="date-val">DD - MM - YYYY</div>
+        <div>تحديث: <span class="time-val" id="lastUpdate">--:--</span></div>
+        <div id="currentDate" class="date-val">DD/MM/YYYY</div>
       </div>
 
     </div>
   </div>
 
   <script>
-    // ربط مباشر بـ Google Script الخاص بك
     const API_URL = "https://script.google.com/macros/s/AKfycbzBX9SOYeh4pbI5wLg25hMB7RXVfYPpUO7TQncgzo2MmYc5wK6xPUPLaEARR8U0i9hj/exec";
 
     async function fetchLiveWidgetData() {
@@ -263,19 +271,17 @@
         const response = await fetch(API_URL);
         const data = await response.json();
         
-        // 1. تحديث تبويب الحالة العلوي
         const tabMode = document.getElementById('tabMode');
         if (data.status === "waiting") {
           tabMode.innerText = "ملخص جنائز اليوم";
           tabMode.style.backgroundColor = "#f7b749";
           tabMode.style.color = "#1a2633";
         } else {
-          tabMode.innerText = `مباشر الآن: ${data.prayerName || '--'}`;
+          tabMode.innerText = `مباشر: ${data.prayerName || '--'}`;
           tabMode.style.backgroundColor = "#ff7643";
           tabMode.style.color = "#fff";
         }
 
-        // 2. معالجة وحساب الأرقام بناءً على استجابة السكربت الحالي
         let menCount = data.men || 0;
         let womenCount = data.women || 0;
         let kidsCount = data.kids || 0;
@@ -287,20 +293,17 @@
           totalCount = data.total || 0;
         }
 
-        // 3. عرض الأرقام في الواجهة
         document.getElementById('totalNumber').innerText = totalCount;
         document.getElementById('valMen').innerText = menCount;
         document.getElementById('valWomen').innerText = womenCount;
         document.getElementById('valChildren').innerText = kidsCount;
         document.getElementById('lastUpdate').innerText = data.lastUpdate || "--:--";
 
-        // 4. تحديث حركة البارات الانسيابية بنسب مئوية دقيقة وملمومة
         const max = totalCount || 1; 
         document.getElementById('barMen').style.width = `${(menCount / max) * 100}%`;
         document.getElementById('barWomen').style.width = `${(womenCount / max) * 100}%`;
         document.getElementById('barChildren').style.width = `${(kidsCount / max) * 100}%`;
 
-        // 5. تصفير الشارات الجانبية قبل التحديث الجديد
         const prayers = ["الظهر", "العصر", "المغرب"];
         prayers.forEach(p => {
           const badge = document.getElementById(`badge-${p}`);
@@ -309,7 +312,6 @@
           if(row) row.classList.remove('active-row');
         });
 
-        // 6. حقن مصفوفة الـ summary القادمة من قوقل في الخانات الجانبية
         if (data.summary && data.summary.length > 0) {
           data.summary.forEach(item => {
             const cleanName = item.prayer.replace("صلاة ", "").trim();
@@ -320,18 +322,16 @@
           });
         }
 
-        // إضاءة الصف النشط في القائمة الجانبية إذا كانت هناك صلاة مباشرة حالياً
         if (data.status === "live" && data.prayerName) {
           const activeCleanName = data.prayerName.replace("صلاة ", "").trim();
           const activeRow = document.getElementById(`row-${activeCleanName}`);
           if (activeRow) activeRow.classList.add('active-row');
         }
 
-        // تحديث تنسيق ألوان الشارات (تغميق الصفر)
         updateBadgeStyling();
 
       } catch (error) {
-        console.error("خطأ أثناء مزامنة بيانات الويدجت التلقائية:", error);
+        console.error("خطأ مزامنة الآيفون:", error);
       }
     }
 
@@ -350,20 +350,16 @@
       });
     }
 
-    // توليد وعرض تاريخ اليوم التلقائي بنسق متوافق مع النظام
     function displayCurrentDate() {
       const today = new Date();
       const dd = String(today.getDate()).padStart(2, '0');
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const yyyy = today.getFullYear();
-      document.getElementById('currentDate').innerText = `${dd} - ${mm} - ${yyyy}`;
+      document.getElementById('currentDate').innerText = `${dd}/${mm}/${yyyy}`;
     }
 
-    // التشغيل المباشر عند التحميل
     displayCurrentDate();
     fetchLiveWidgetData();
-
-    // فحص دوري دائم كل 30 ثانية لتحديث البيانات خلف الكواليس
     setInterval(fetchLiveWidgetData, 30000);
   </script>
 </body>
